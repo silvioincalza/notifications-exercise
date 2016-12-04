@@ -6,10 +6,14 @@
 
     <groupId>it.incalza</groupId>
     <artifactId>notification-bucket</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>notification-bucket-domain</module>
+        <module>notification-system-a-adapter</module>
+        <module>notification-system-b-adapter</module>
+        <module>notification-storage-jdbc-adapter</module>
     </modules>
 
     <properties>
@@ -28,8 +32,56 @@
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>it.incalza</groupId>
+                <artifactId>notification-bucket-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>it.incalza</groupId>
+                <artifactId>notification-storage-jdbc-adapter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>4.3.3.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.192</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
 
 </project>
