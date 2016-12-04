@@ -1,1 +1,1 @@
-![hight-level-diagram](img/hight-level-diagram.svg)
+![hight-level-diagram](https://raw.githubusercontent.com/silvioincalza/notifications-exercise/master/docs/img/hight-level-diagram.svg)
