@@ -37,3 +37,5 @@ You must use a Relational Database between MySQL or PostreSQL. Please argument y
 - Describe how you can solve high load problems at the server and database level.
 - Describe what other risks can be identified and how can he handle them.
 - Is a NoSql database more suited for the system?
+
+[Go to Solution](docs/index.md)

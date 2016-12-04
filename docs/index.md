@@ -1,0 +1,1 @@
+![hight-level-diagram](img/hight-level-diagram.svg)
