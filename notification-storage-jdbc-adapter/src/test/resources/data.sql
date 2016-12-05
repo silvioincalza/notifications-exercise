@@ -1,1 +1,0 @@
-INSERT INTO test_notification(uuid) VALUES ('cd5286f7-33f6-4ef6-afba-cdc7d4844f21')

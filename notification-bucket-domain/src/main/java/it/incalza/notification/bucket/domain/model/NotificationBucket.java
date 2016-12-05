@@ -1,31 +1,29 @@
 package it.incalza.notification.bucket.domain.model;
 
-import java.util.UUID;
-
 /**
  * Created by sincalza on 04/12/2016.
  */
 public class NotificationBucket {
 
-    private UUID notificationUuid;
+    private Notification notification;
     private String alertEmail;
-    private boolean sentAlert;
+    private boolean alertSent;
 
     public NotificationBucket() {
     }
 
-    public NotificationBucket(UUID notificationUuid, String alertEmail, boolean sentAlert) {
-        this.notificationUuid = notificationUuid;
+    public NotificationBucket(Notification notification , String alertEmail, boolean alertSent) {
+        this.notification = notification;
         this.alertEmail = alertEmail;
-        this.sentAlert = sentAlert;
+        this.alertSent = alertSent;
     }
 
-    public UUID getNotificationUuid() {
-        return notificationUuid;
+    public Notification getNotification() {
+        return notification;
     }
 
-    public void setNotificationUuid(UUID notificationUuid) {
-        this.notificationUuid = notificationUuid;
+    public void setNotification(Notification notification) {
+        this.notification = notification;
     }
 
     public String getAlertEmail() {
@@ -36,11 +34,11 @@ public class NotificationBucket {
         this.alertEmail = alertEmail;
     }
 
-    public boolean isSentAlert() {
-        return sentAlert;
+    public boolean isAlertSent() {
+        return alertSent;
     }
 
-    public void setSentAlert(boolean sentAlert) {
-        this.sentAlert = sentAlert;
+    public void setAlertSent(boolean alertSent) {
+        this.alertSent = alertSent;
     }
 }

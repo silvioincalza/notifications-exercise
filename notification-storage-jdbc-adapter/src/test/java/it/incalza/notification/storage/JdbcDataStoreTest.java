@@ -2,7 +2,6 @@ package it.incalza.notification.storage;
 
 import it.incalza.notification.bucket.domain.model.Notification;
 import it.incalza.notification.bucket.domain.model.Notifications;
-import it.incalza.notification.storage.JdbcQueries.JdbcQueriesBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,11 +15,10 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
 /**
  * Created by sincalza on 04/12/2016.
  */
-public class JdbcNotificationRepositoryTest {
+public class JdbcDataStoreTest {
 
-    private static final String INITIAL_STRING_UUID = "cd5286f7-33f6-4ef6-afba-cdc7d4844f21";
-    public static final String INSERT_QUERY = "insert into test_notification(uuid) values(:uuid)";
-    private Impl repository;
+    public static final String INSERT_QUERY = "insert into test_table(uuid) values(:uuid)";
+    private JdbcDataStore jdbcDataStore;
     private EmbeddedDatabase dataSource;
 
     class TestNotification extends Notification {
@@ -29,18 +27,11 @@ public class JdbcNotificationRepositoryTest {
 
     }
 
-    class Impl extends JdbcNotificationSystemRepository<TestNotification> {
-        public Impl(DataSource dataSource, JdbcQueries jdbcQueries) {
-            super(dataSource, jdbcQueries);
-        }
-    }
 
     @Before
     public void setUp() {
         dataSource = new EmbeddedDatabaseBuilder().setType(H2).addDefaultScripts().build();
-        repository = new Impl(dataSource, new JdbcQueriesBuilder()
-                .withInserQuery(INSERT_QUERY)
-                .build());
+        jdbcDataStore = new JdbcDataStore(dataSource, INSERT_QUERY);
     }
 
     @After
@@ -51,7 +42,8 @@ public class JdbcNotificationRepositoryTest {
 
     @Test
     public void saveACollections() throws Exception {
-        repository.save(new Notifications<>(new TestNotification(), new TestNotification(), new TestNotification()));
+        jdbcDataStore.save(new Notifications<>(new TestNotification(), new TestNotification(), new TestNotification()));
+//        assertThat(new JdbcTemplate)
     }
 
 }
