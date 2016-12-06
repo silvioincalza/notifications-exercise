@@ -1,0 +1,4 @@
+INSERT INTO notification_a(uuid, user_id, message) VALUES ('cd5286f7-33f6-4ef6-afba-cdc7d4844f21', 'incalza.silvio@gmail.com', 'message');
+
+INSERT INTO notification_b(uuid, user_id, message, media, media_type) VALUES ('cd5286f7-33f6-4ef6-afba-cdc7d4844f21', 'incalza.silvio@gmail.com', 'message', 'http://media.url', 'picture');
+INSERT INTO notification_b(uuid, user_id, message, media, media_type) VALUES ('260ac374-53f9-4383-a59c-749e6ca2b2f5', 'incalza.silvio@gmail.com', 'message2', 'http://media.url', 'picture');

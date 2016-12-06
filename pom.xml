@@ -11,9 +11,6 @@
 
     <modules>
         <module>notification-bucket-domain</module>
-        <module>notification-system-a-adapter</module>
-        <module>notification-system-b-adapter</module>
-        <module>notification-storage-jdbc-adapter</module>
     </modules>
 
     <properties>
@@ -81,6 +78,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
         </dependency>
     </dependencies>
 
