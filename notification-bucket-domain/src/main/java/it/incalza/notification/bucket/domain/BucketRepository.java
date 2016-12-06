@@ -8,7 +8,9 @@ import java.util.Set;
  */
 public interface BucketRepository {
 
-    void put(Set<BucketItem> notifications);
+    void put(Set<BucketItem> entities);
 
     Map<String, Set<BucketItem>> getNotSent();
+
+    void markTrueAlertSent(Set<BucketItem> entities);
 }
