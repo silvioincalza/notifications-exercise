@@ -20,9 +20,18 @@ Objects Diagram:
 
 ![diagram](https://raw.githubusercontent.com/silvioincalza/notifications-exercise/master/docs/diagram.png)
 
-## How to extends with another notification system
+
+#### Mysql or PostgreSQL? 
+For this prototype I choose for demo version a H2 embedded database, the functions of this database are equal to  Mysql or PostgreSQL more o less.
+I'm not a DBA Administrator so I don't know all peculiarities of these databases.
+Any way, if I have to choose one of these databases, I think that when reliability and data integrity are an absolute necessity without excuses, PostgreSQL is the better choice.
+
+#### How to extends with another notification system
 Create a DTO of notification contract and this need to implement an interface: it.incalza.notification.bucket.domain.Notification.
 
+The unique constraint of contract is to have the user id , this because we need to retrieve the email of user.
+
+The uuid is used only to have a internal ID of each notification we receive.
 
 ```java
 
