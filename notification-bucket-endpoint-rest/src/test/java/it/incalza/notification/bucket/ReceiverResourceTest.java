@@ -41,6 +41,21 @@ public class ReceiverResourceTest {
     }
 
     @Test
+    public void receiverSystemA_when_notification_exist_then_fail_with_400_status_code() throws Exception {
+        mockMvc.perform(put("/receiver/systemA")
+                .contentType(APPLICATION_JSON)
+                .content(jsonSystemANotification(1)))
+                .andDo(log())
+                .andExpect(status().isOk());
+
+        mockMvc.perform(put("/receiver/systemA")
+                .contentType(APPLICATION_JSON)
+                .content(jsonSystemANotification(1)))
+                .andDo(log())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void receiverSystemB() throws Exception {
         mockMvc.perform(put("/receiver/systemB")
                 .contentType(APPLICATION_JSON)

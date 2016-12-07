@@ -4,10 +4,15 @@ import it.incalza.notification.bucket.adapter.systemA.ANotificationDefaultReceiv
 import it.incalza.notification.bucket.adapter.systemA.model.ANotification;
 import it.incalza.notification.bucket.adapter.systemB.BNotificationDefaultReceiver;
 import it.incalza.notification.bucket.adapter.systemB.model.BNotification;
+import it.incalza.notification.bucket.domain.DuplicateNotificationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -35,6 +40,13 @@ public class ReceiverResource {
         bNotificationDefaultReceiver.onReceive(bNotifications);
     }
 
+
+
+
+    @ExceptionHandler(DuplicateNotificationException.class)
+    public void handleNotFoundException(Throwable e, HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value());
+    }
 
 
 }
