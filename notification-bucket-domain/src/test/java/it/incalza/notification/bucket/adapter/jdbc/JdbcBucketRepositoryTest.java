@@ -1,6 +1,5 @@
 package it.incalza.notification.bucket.adapter.jdbc;
 
-import it.incalza.notification.bucket.adapter.systemA.repository.JdbcNotificationARepository;
 import it.incalza.notification.bucket.domain.BucketItem;
 import org.junit.After;
 import org.junit.Before;
@@ -16,12 +15,11 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import static java.util.Arrays.asList;
 import static java.util.UUID.randomUUID;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
 /**

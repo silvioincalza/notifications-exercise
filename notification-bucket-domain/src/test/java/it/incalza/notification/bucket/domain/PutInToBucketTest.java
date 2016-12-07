@@ -15,11 +15,6 @@ import static org.mockito.Mockito.*;
  * Created by sincalza on 06/12/2016.
  */
 public class PutInToBucketTest {
-    static class Example extends Notification {
-        public Example(UUID uuid, String userId) {
-            super(uuid, userId);
-        }
-    }
 
     UserRepository userRepository = new UserRepository() {
         @Override
@@ -28,14 +23,14 @@ public class PutInToBucketTest {
         }
     };
     BucketRepository bucketRepository = mock(BucketRepository.class);
-    PutInToBucket<Example> putInToBucket = new PutInToBucket<>("system1", bucketRepository, userRepository);
+    PutInToBucket putInToBucket = new PutInToBucket("system1", bucketRepository, userRepository);
 
     @Test
     public void onReceive() {
         UUID uuid = randomUUID();
-        Set<Example> notifications = new HashSet<>(asList(new Example(uuid, "userID")));
+        Set notifications = new HashSet<>(asList(new ExampleNotification(uuid, "userID")));
         HashSet<BucketItem> expectedToPut = new HashSet<>(asList(new BucketItem(uuid, "system1", "userID", false)));
-        putInToBucket.onReceive(notifications);
+        putInToBucket.onNotifications(notifications);
         verify(bucketRepository, times(1)).put(eq(expectedToPut));
     }
 

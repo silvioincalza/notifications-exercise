@@ -1,6 +1,6 @@
 package it.incalza.notification.bucket.adapter.systemA.repository;
 
-import it.incalza.notification.bucket.adapter.systemA.model.NotificationA;
+import it.incalza.notification.bucket.adapter.systemA.model.ANotification;
 import it.incalza.notification.bucket.domain.DuplicateNotificationException;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -15,24 +15,23 @@ import java.util.Set;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
 /**
  * Created by sincalza on 05/12/2016.
  */
-public class JdbcNotificationARepositoryTest {
+public class JdbcANotificationRepositoryTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    private JdbcNotificationARepository repository;
+    private JdbcANotificationRepository repository;
     private NamedParameterJdbcTemplate jdbcTemplate;
     private EmbeddedDatabase dataSource;
 
     @Before
     public void setUp() {
         dataSource = new EmbeddedDatabaseBuilder().setType(H2).generateUniqueName(true).addDefaultScripts().build();
-        repository = new JdbcNotificationARepository(dataSource);
+        repository = new JdbcANotificationRepository(dataSource);
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
@@ -45,9 +44,9 @@ public class JdbcNotificationARepositoryTest {
 
     @Test
     public void save() throws Exception {
-        Set<NotificationA> entities = new HashSet<>(asList(new NotificationA("user1", "text1"),
-                new NotificationA("user2", "text2"),
-                new NotificationA("user3", "text3")));
+        Set<ANotification> entities = new HashSet<>(asList(new ANotification("user1", "text1"),
+                new ANotification("user2", "text2"),
+                new ANotification("user3", "text3")));
         repository.save(entities);
         assertExist("user1", "text1");
         assertExist("user2", "text2");
@@ -57,9 +56,9 @@ public class JdbcNotificationARepositoryTest {
     @Test
     public void failedOnDuplication() throws Exception {
         expectedException.expect(DuplicateNotificationException.class);
-        repository.save(new HashSet<>(asList(new NotificationA("user1", "text1"))));
+        repository.save(new HashSet<>(asList(new ANotification("user1", "text1"))));
         assertExist("user1", "text1");
-        repository.save(new HashSet<>(asList(new NotificationA("user1", "text1"))));
+        repository.save(new HashSet<>(asList(new ANotification("user1", "text1"))));
     }
 
     public void assertExist(String userId, String message) {

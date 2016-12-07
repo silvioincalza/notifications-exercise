@@ -1,0 +1,36 @@
+spring:
+    application:
+        name: notification
+    profiles:
+      active: test
+
+notifyByEmail:
+  scheduler:
+    #every hour in ms
+    fixedDelay: 3600000
+
+
+---
+spring:
+  profiles: mysql
+  datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost/test
+      username: user
+      password: user
+
+---
+spring:
+  profiles: test
+  datasource:
+    driver-class-name: org.h2.Driver
+    log-validation-errors: true
+    continueOnError: false
+    initialize: true
+    embeddedDatabaseConnection: H2
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG
+    root: INFO

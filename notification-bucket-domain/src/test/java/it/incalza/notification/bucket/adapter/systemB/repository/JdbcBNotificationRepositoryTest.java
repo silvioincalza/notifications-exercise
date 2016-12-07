@@ -1,7 +1,7 @@
 package it.incalza.notification.bucket.adapter.systemB.repository;
 
 import it.incalza.notification.bucket.adapter.systemB.model.MediaType;
-import it.incalza.notification.bucket.adapter.systemB.model.NotificationB;
+import it.incalza.notification.bucket.adapter.systemB.model.BNotification;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,24 +20,24 @@ import static it.incalza.notification.bucket.adapter.systemB.model.MediaType.pic
 import static it.incalza.notification.bucket.adapter.systemB.model.MediaType.video;
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
 /**
  * Created by sincalza on 05/12/2016.
  */
-public class JdbcNotificationBRepositoryTest {
+public class JdbcBNotificationRepositoryTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    private JdbcNotificationBRepository repository;
+    private JdbcBNotificationRepository repository;
     private NamedParameterJdbcTemplate jdbcTemplate;
     private EmbeddedDatabase dataSource;
 
     @Before
     public void setUp() {
         dataSource = new EmbeddedDatabaseBuilder().setType(H2).generateUniqueName(true).addDefaultScripts().build();
-        repository = new JdbcNotificationBRepository(dataSource);
+        repository = new JdbcBNotificationRepository(dataSource);
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
@@ -49,9 +49,9 @@ public class JdbcNotificationBRepositoryTest {
 
     @Test
     public void save() throws Exception {
-        Set<NotificationB> entities = new HashSet<>(asList(new NotificationB("user1", "text1", "url1", picture),
-                new NotificationB("user2", "text2", "url2", picture),
-                new NotificationB("user3", "text3", "url3", video)));
+        Set<BNotification> entities = new HashSet<>(asList(new BNotification("user1", "text1", "url1", picture),
+                new BNotification("user2", "text2", "url2", picture),
+                new BNotification("user3", "text3", "url3", video)));
         repository.save(entities);
         assertThat(count("user1", "text1", "url1", picture), is(1L));
         assertThat(count("user2", "text2", "url2", picture), is(1L));
@@ -60,9 +60,9 @@ public class JdbcNotificationBRepositoryTest {
 
     @Test
     public void notFailedOnDuplication() throws Exception {
-        repository.save(new HashSet<>(asList(new NotificationB("user1", "text1", "url1", picture))));
+        repository.save(new HashSet<>(asList(new BNotification("user1", "text1", "url1", picture))));
         assertThat(count("user1", "text1", "url1", picture), is(1L));
-        repository.save(new HashSet<>(asList(new NotificationB("user1", "text1", "url1", picture))));
+        repository.save(new HashSet<>(asList(new BNotification("user1", "text1", "url1", picture))));
         assertThat(count("user1", "text1", "url1", picture), is(2L));
     }
 

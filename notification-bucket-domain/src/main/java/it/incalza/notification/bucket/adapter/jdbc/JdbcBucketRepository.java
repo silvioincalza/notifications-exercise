@@ -5,14 +5,9 @@ import it.incalza.notification.bucket.domain.BucketRepository;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
-
-import static java.util.stream.Collectors.toSet;
 
 /**
  * Created by sincalza on 06/12/2016.
@@ -31,8 +26,7 @@ public class JdbcBucketRepository implements BucketRepository {
 
     @Override
     public void put(Set<BucketItem> entities) {
-        Set<BeanPropertySqlParameterSource> parameterSources = entities.stream().map(BeanPropertySqlParameterSource::new).collect(toSet());
-        jdbcTemplate.batchUpdate(INSERT_QUERY, parameterSources.toArray(new SqlParameterSource[parameterSources.size()]));
+        jdbcTemplate.batchUpdate(INSERT_QUERY, getParameters(entities));
     }
 
     @Override
@@ -48,13 +42,14 @@ public class JdbcBucketRepository implements BucketRepository {
         return items;
     }
 
-
     @Override
     public void markTrueAlertSent(Set<BucketItem> entities) {
-        Set<BeanPropertySqlParameterSource> parameterSources = entities.stream().map(BeanPropertySqlParameterSource::new).collect(toSet());
-        jdbcTemplate.batchUpdate(MARK_SENT_TRUE_UPDATE_QUERY, parameterSources.toArray(new SqlParameterSource[parameterSources.size()]));
+        jdbcTemplate.batchUpdate(MARK_SENT_TRUE_UPDATE_QUERY, getParameters(entities));
     }
 
+    private BeanPropertySqlParameterSource[] getParameters(Set<BucketItem> entities) {
+        return entities.stream().map(BeanPropertySqlParameterSource::new).toArray(BeanPropertySqlParameterSource[]::new);
+    }
 
     private RowMapper<BucketItem> rowMapper() {
         return (rs, rowNum) -> {

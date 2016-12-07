@@ -1,5 +1,7 @@
 package it.incalza.notification.bucket.domain;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,5 +24,12 @@ public class NotifyByEmail implements NotifierCommand {
     public void onNotify() {
         Map<String, Set<BucketItem>> notSent = bucketRepository.getNotSent();
         notSent.forEach((k, bucketItems) -> emailProvider.send(k, format("You have received %1s notification", bucketItems.size())));
+        bucketRepository.markTrueAlertSent(convert(notSent.values()));
+    }
+
+    private Set<BucketItem> convert(Collection<Set<BucketItem>> values) {
+        Set<BucketItem> set = new HashSet<>();
+        values.forEach(set::addAll);
+        return set;
     }
 }

@@ -1,22 +1,46 @@
 package it.incalza.notification.bucket.adapter.systemB.model;
 
 import it.incalza.notification.bucket.domain.Notification;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.UUID;
+
+import static java.util.UUID.randomUUID;
 
 
-public class NotificationB extends Notification {
+public class BNotification implements Notification {
+    private String userId;
     private String message;
     private String media;
     private MediaType mediaType;
+    private UUID uuid;
 
-    public NotificationB(String userId, String message, String media, MediaType mediaType) {
-        super(userId);
+    public BNotification() {
+        uuid = randomUUID();
+    }
+
+    public BNotification(String userId, String message, String media, MediaType mediaType) {
+        this();
+        this.userId = userId;
         this.message = message;
         this.media = media;
         this.mediaType = mediaType;
     }
 
+    @Override
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getMessage() {
         return message;
@@ -48,9 +72,10 @@ public class NotificationB extends Notification {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        NotificationB that = (NotificationB) o;
+        BNotification that = (BNotification) o;
 
         return new EqualsBuilder()
+                .append(userId, that.userId)
                 .append(message, that.message)
                 .append(media, that.media)
                 .append(mediaType, that.mediaType)
@@ -60,6 +85,7 @@ public class NotificationB extends Notification {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
+                .append(userId)
                 .append(message)
                 .append(media)
                 .append(mediaType)

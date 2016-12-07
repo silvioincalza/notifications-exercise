@@ -1,7 +1,5 @@
 package it.incalza.notification.bucket.domain;
 
-import it.incalza.notification.bucket.domain.Notification;
-
 import java.util.Set;
 
 /**

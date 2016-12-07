@@ -1,14 +1,15 @@
 package it.incalza.notification.bucket.domain;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Created by sincalza on 04/12/2016.
  */
-public class BucketItem {
+public class BucketItem implements Serializable{
 
     private UUID notificationId;
     private String systemId;

@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.toSet;
 /**
  * Created by sincalza on 05/12/2016.
  */
-public class PutInToBucket<T extends Notification> implements NotificationCommand<T> {
+public class PutInToBucket implements NotificationCommand<Notification> {
 
     private final String systemId;
     private final BucketRepository bucketRepository;
@@ -20,12 +20,12 @@ public class PutInToBucket<T extends Notification> implements NotificationComman
     }
 
     @Override
-    public void onReceive(Set<T> notifications) {
+    public void onNotifications(Set<Notification> notifications) {
         Set<BucketItem> items = notifications.stream().map(v -> convert(v)).collect(toSet());
         bucketRepository.put(items);
     }
 
-    private BucketItem convert(T v) {
+    private BucketItem convert(Notification v) {
         return new BucketItem(v.getUuid(), systemId, userRepository.retrieveEmail(v.getUserId()), false);
     }
 
