@@ -118,3 +118,6 @@ mvn spring-boot:run -e
 ##### System requirements:
 Java 8
 
+
+##### Tips & tricks
+Performance of generate a random UUID http://stackoverflow.com/a/35050629/7159282
