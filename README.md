@@ -1,5 +1,7 @@
 # notifications-exercise
 
+[Go to the my solution](docs/README.md)
+
 ####Exercise
 
 Design and implement a system that subscribes to notifications coming from two other external systems and shows the notifications in a common interface.
@@ -38,4 +40,3 @@ You must use a Relational Database between MySQL or PostreSQL. Please argument y
 - Describe what other risks can be identified and how can he handle them.
 - Is a NoSql database more suited for the system?
 
-[Go to the solution](docs/README.md)
